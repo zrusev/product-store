@@ -6,15 +6,8 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
-    using Microsoft.IdentityModel.Tokens;
     using Models;
     using Models.Users;
-    using System;
-    using System.Collections.Generic;
-    using System.IdentityModel.Tokens.Jwt;
-    using System.Linq;
-    using System.Security.Claims;
-    using System.Text;
     using System.Threading.Tasks;
     using WebApi.Data.Models.Users;
 
@@ -37,39 +30,6 @@
             _appSettings = appSettings.Value;
         }
 
-        private async Task<TokenModel> GenerateJwtToken(ApplicationUser user)
-        {
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.NameIdentifier, user.Id),
-                new Claim(ClaimTypes.Email, user.Email)
-            };
-
-            var roles = await _userManager.GetRolesAsync(user);
-            claims.AddRange(roles.Select(role => new Claim(ClaimsIdentity.DefaultRoleClaimType, role)));
-
-            var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
-
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Issuer = _appSettings.Issuer,
-                Audience = _appSettings.Audience,
-                Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.UtcNow.AddDays(_appSettings.Expiration),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
-
-            var tokenHandler = new JwtSecurityTokenHandler();
-
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-
-            return new TokenModel
-            {
-                Token = tokenHandler.WriteToken(token),
-                Expiration = token.ValidTo
-            };
-        }
-
         [AllowAnonymous]
         [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterModel model)
@@ -90,7 +50,7 @@
 
                 await _signInManager.SignInAsync(user, false);
 
-                return Ok(await GenerateJwtToken(user));
+                return Ok(await Tokens.GenerateJwtToken(user, _userManager, _appSettings));
             }
 
             return BadRequest(result);
@@ -112,7 +72,7 @@
 
             _logger.LogInformation($"User '{model.Email}' logged in.");
 
-            return Ok(await GenerateJwtToken(user));
+            return Ok(await Tokens.GenerateJwtToken(user, _userManager, _appSettings));
         }
 
         [HttpGet]

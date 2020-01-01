@@ -9,5 +9,9 @@
         public string Audience { get; set; }
 
         public int Expiration { get; set; }
+
+        public string FbAppId { get; set; }
+
+        public string FbAppSecret { get; set; }
     }
 }
