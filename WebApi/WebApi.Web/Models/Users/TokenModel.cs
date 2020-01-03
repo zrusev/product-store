@@ -10,5 +10,7 @@
 
         [Required]
         public DateTime Expiration { get; set; }
+
+        public bool Success { get; set; }
     }
 }

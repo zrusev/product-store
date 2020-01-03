@@ -43,7 +43,8 @@
             return new TokenModel
             {
                 Token = tokenHandler.WriteToken(token),
-                Expiration = token.ValidTo
+                Expiration = token.ValidTo,
+                Success = true
             };
         }
     }
