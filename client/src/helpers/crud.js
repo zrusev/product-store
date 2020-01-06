@@ -31,3 +31,4 @@ export const get = request('get');
 export const post = request('post');
 export const put = request('put');
 export const remove = request('delete');
+export const clearStorage = () => window.localStorage.removeItem('auth_token');

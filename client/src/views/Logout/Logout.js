@@ -1,5 +1,4 @@
 import React from 'react';
-import { Button } from 'rebass';
 import { withRouter } from 'react-router-dom';
 
 const logOutUser = (props) => {
@@ -10,8 +9,8 @@ const logOutUser = (props) => {
 
 const LogOut = (props) => {
  return (
-    <Button onClick={logOutUser(props)} children="Log Out" />
+    <button className="btn btn-primary" onClick={logOutUser(props)}>Log Out</button>
  );
 };
 
-export default withRouter(props => LogOut(props));
+export const LogOutPage = withRouter(props => LogOut(props));

@@ -1,8 +1,9 @@
-import { post } from './crud';
+import { post, clearStorage } from '../helpers';
+import { serviceBaseURL } from '../constants';
 
-class accountService {
+export class AccountService {
     constructor() {
-        this.serverBaseURL = 'https://localhost:5001/api/v1/users';
+        this.serverBaseURL = serviceBaseURL;
         this.loginURL = `${this.serverBaseURL}/login`;
         this.registerURL = `${this.serverBaseURL}/register`;
     }
@@ -14,6 +15,8 @@ class accountService {
     register(credentials) {
         return post(this.registerURL, credentials);
     }
-}
 
-export default accountService;
+    logout() {
+        return clearStorage();
+    }
+}
