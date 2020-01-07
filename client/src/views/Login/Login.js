@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { userActions } from '../../actions';
 
 export const LoginPage = () => {
     const dispatch = useDispatch();
 
-    useEffect(() => {
-      dispatch(userActions.logout());
-    }, [dispatch]);
+    // useEffect(() => {
+    //   dispatch(userActions.logout());
+    // }, [dispatch]);
 
     const initialState = {
         email: '',

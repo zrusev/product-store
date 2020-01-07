@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { LogOutPage } from '../index';
 
 export const Navigation = () => {
-    const { loggedIn } = useSelector(state => state.authentication);
-    const [authenticated, setAuthenticated] = useState(loggedIn);
+    const loggedIn = useSelector(state => state.authentication.loggedIn);
+    const [auth, setAuth] = useState(false);
 
     useEffect(() => {
-        setAuthenticated(loggedIn);
-    },[loggedIn]);
+        if(loggedIn !== auth) {
+            setAuth(loggedIn);
+        }
+    }, [auth, loggedIn])
 
     return (
         <nav className="navbar navbar-default">
@@ -18,28 +20,30 @@ export const Navigation = () => {
                     <li>
                         <NavLink to="/">Home</NavLink>
                     </li>
+                    <li>
+                        <NavLink to="/login">Login</NavLink>
+                    </li>
                     {
-                        authenticated 
-                        ? (
-                            <>
-                                <li>
-                                    <NavLink to="/dashboard">Dashboard</NavLink>
-                                </li>
-                                <li>
-                                    <LogOutPage />
-                                </li>
-                            </>
-                        ) : (
-                            <>
-                                <li>
-                                    <NavLink to="/login">Login</NavLink>
-                                </li>
-                                <li>
-                                    <NavLink to="/register">Register</NavLink>
-                                </li>
-                            </>
-                        )
-                    }        
+                        auth
+                        ?
+                        <>
+                            <li>
+                                <NavLink to="/dashboard">Dashboard</NavLink>
+                            </li>
+                            <li>
+                                <LogOutPage />
+                            </li>
+                        </>
+                        : 
+                        <>
+                            <li>
+                                <NavLink to="/login">Login</NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/register">Register</NavLink>
+                            </li>
+                        </>
+                    }
                 </ul>
             </div>
         </nav>

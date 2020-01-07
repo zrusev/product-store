@@ -1,13 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { userActions } from '../../actions';
 
 export const RegisterPage = props => {
     const dispatch = useDispatch();
-
-    useEffect(() => {
-      dispatch(userActions.logout());
-    }, [dispatch]);
 
     const initialState = {
         email: '',
@@ -31,8 +27,7 @@ export const RegisterPage = props => {
       }
 
       const { email, password } = state;
-      const { dispatch } = props;
-
+      
       if (email && password) {
         dispatch(userActions.register(email, password));
       }

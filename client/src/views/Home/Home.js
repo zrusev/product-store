@@ -1,9 +1,11 @@
 import React from 'react';
+import { Navigation } from '../index';
 
 export const HomePage = () => {
     return (
-    <div className="col-md-6 col-md-offset-3">
+      <>
+        <Navigation />
         <h2>Home Page!</h2>
-      </div>
+      </>
     )
 }

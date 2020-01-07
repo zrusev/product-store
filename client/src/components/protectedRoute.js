@@ -1,12 +1,13 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
 
-const ProtectedRoute = ({ component: Component, authenticated, ...rest }) => {
- return <Route render={(props) => (authenticated 
-                ? <Component {...props} /> 
-                : <Redirect to="/login" />)} 
-              {...rest}
+export const ProtectedRoute = ({ component: Component, ...rest }) => {
+  const loggedIn = useSelector(state => state.authentication.loggedIn);
+
+  return <Route render={props => (loggedIn 
+                                  ? <Component {...props} /> 
+                                  : <Redirect to="/login" />)} 
+            {...rest}
         />;
 };
-
-export default ProtectedRoute;
