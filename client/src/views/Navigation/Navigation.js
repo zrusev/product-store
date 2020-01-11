@@ -1,19 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { LogOutPage } from '../index';
 
 export const Navigation = () => {
     const loggedIn = useSelector(state => state.authentication.loggedIn);
-    
-    const initialAuth = !!window.localStorage.getItem('auth_token');
-    const [auth, setAuth] = useState(initialAuth);
-    
-    useEffect(() => {
-        if(loggedIn !== auth) {
-            setAuth(loggedIn);
-        }
-    }, [auth, loggedIn])
 
     return (
         <nav className="navbar navbar-default">
@@ -23,7 +14,7 @@ export const Navigation = () => {
                         <NavLink to="/">Home</NavLink>
                     </li>
                     {
-                        auth
+                        loggedIn
                         ?
                         <>
                             <li>

@@ -4,12 +4,14 @@ import { serviceBaseURL } from '../constants';
 export class AccountService {
     constructor() {
         this.serverBaseURL = serviceBaseURL;
-        this.loginURL = `${this.serverBaseURL}/login`;
-        this.registerURL = `${this.serverBaseURL}/register`;
+        this.loginURL = `${this.serverBaseURL}/users/login`;
+        this.facebookLoginUrl = `${this.serverBaseURL}/externalauth/facebook/`;
+        this.registerURL = `${this.serverBaseURL}/users/register`;
     }
 
     login(credentials) {
-        return post(this.loginURL, credentials);
+        const url = credentials.facebookLoginUrl ? this.facebookLoginUrl : this.loginURL;
+        return post(url, credentials);
     }
 
     register(credentials) {

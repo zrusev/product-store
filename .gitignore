@@ -304,3 +304,4 @@ __pycache__/
 **/mailsettings.development.json
 **/mailsettings.uat.json
 **/mailsettings.production.json
+client/.env

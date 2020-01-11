@@ -5,6 +5,30 @@ import { alertActions } from './alert.actions';
 const service = new AccountService();
 
 export const userActions = {
+    loginWithFacebook: accessToken => {
+        const request = user => ({ type: userConstants.LOGIN_FACEBOOK_REQUEST, user }); 
+        const success = user => ({ type: userConstants.LOGIN_FACEBOOK_SUCCESS, user });
+        const failure = error => ({ type: userConstants.LOGIN_FACEBOOK_FAILURE, error });
+
+        return dispatch => {
+            dispatch(request(accessToken));
+
+            service.login({ accessToken, facebookLoginUrl: true })
+                .then(
+                    user => { 
+                        dispatch(success(user));
+    
+                        if (user.token) {
+                            window.localStorage.setItem('auth_token', user.token);
+                        }
+                    },
+                    error => {
+                        dispatch(failure(error));
+                        dispatch(alertActions.error(error));
+                    }
+                );
+        }
+    },
     login: (email, password) => {
         const request = user => ({ type: userConstants.LOGIN_REQUEST, user }); 
         const success = user => ({ type: userConstants.LOGIN_SUCCESS, user });
