@@ -8,6 +8,7 @@
     using Microsoft.Extensions.Options;
     using Models;
     using Models.Users;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
     using WebApi.Data.Models.Users;
 
@@ -63,7 +64,19 @@
             var user = await _userManager.FindByEmailAsync(model.Email);
 
             if (user == null || !(await _userManager.CheckPasswordAsync(user, model.Password)))
-                return Unauthorized();
+            {
+                return BadRequest(new
+                { 
+                    errors = new IdentityError[]
+                    {
+                        new IdentityError()
+                        {
+                            Code = "CredentialsError",
+                            Description = "Invalid email or password"
+                        },
+                    }               
+                });
+            }
 
             var result = await _signInManager.PasswordSignInAsync(user, model.Password, true, false);
 

@@ -10,7 +10,7 @@ function request(method) {
     return async (url, data, options) => {
         const authHeader = getAuthHeader();
 
-        const response = await fetch(url, {
+        return await fetch(url, {
             method,
             headers: {
                 'Content-Type': 'application/json',
@@ -21,9 +21,25 @@ function request(method) {
                     ? JSON.stringify(data)
                     : undefined,
             ...options
-        });
+        })
+        .then(response => {
+            return response.text()
+                .then(text => {
+                    const data = text && JSON.parse(text);
 
-        return response.json();
+                    if (!response.ok) {
+                        if (response.status === 401) {
+                            window.localStorage.removeItem('auth_token');
+                            window.location.reload(true);
+                        }
+            
+                        const error = (data && data.errors) || response.statusText;
+                        return Promise.reject(error);
+                    }
+
+                    return Promise.resolve(data);
+                });
+        });
     }
 }
 
@@ -31,4 +47,3 @@ export const get = request('get');
 export const post = request('post');
 export const put = request('put');
 export const remove = request('delete');
-export const clearStorage = () => window.localStorage.removeItem('auth_token');

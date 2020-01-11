@@ -1,7 +1,6 @@
 import { userConstants } from '../constants';
 import { AccountService } from '../services';
 import { alertActions } from './alert.actions';
-import { history } from '../helpers';
 
 const service = new AccountService();
 
@@ -22,8 +21,6 @@ export const userActions = {
                         if (user.token) {
                             window.localStorage.setItem('auth_token', user.token);
                         }
-
-                        history.push('/');
                     },
                     error => {
                         dispatch(failure(error));
@@ -53,8 +50,6 @@ export const userActions = {
                         if (user.token) {
                             window.localStorage.setItem('auth_token', user.token);
                         }
-
-                        history.push('/');
                     },
                     error => {
                         dispatch(failure(error));

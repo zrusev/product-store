@@ -5,8 +5,10 @@ import { LogOutPage } from '../index';
 
 export const Navigation = () => {
     const loggedIn = useSelector(state => state.authentication.loggedIn);
-    const [auth, setAuth] = useState(false);
-
+    
+    const initialAuth = !!window.localStorage.getItem('auth_token');
+    const [auth, setAuth] = useState(initialAuth);
+    
     useEffect(() => {
         if(loggedIn !== auth) {
             setAuth(loggedIn);
@@ -19,9 +21,6 @@ export const Navigation = () => {
                 <ul className="nav navbar-nav">
                     <li>
                         <NavLink to="/">Home</NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/login">Login</NavLink>
                     </li>
                     {
                         auth

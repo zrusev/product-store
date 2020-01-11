@@ -1,16 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { userActions } from '../../actions';
+import { history } from '../../helpers';
 
 export const RegisterPage = props => {
     const dispatch = useDispatch();
 
-    const initialState = {
-        email: '',
-        password: '',
-    };
-
+    const initialState = { email: '', password: ''};
     const [state, setState] = useState(initialState);
+
+    useEffect(() => {
+      dispatch(userActions.logout());
+    }, [dispatch]);
 
     const handleInputChange = event => {
       event.persist();
@@ -30,6 +31,8 @@ export const RegisterPage = props => {
       
       if (email && password) {
         dispatch(userActions.register(email, password));
+
+        history.push("/");
       }
     };
     

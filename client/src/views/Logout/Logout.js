@@ -1,16 +1,18 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { userActions } from '../../actions';
+import { history } from '../../helpers';
 
-const logOutUser = (props) => {
-    window.localStorage.clear();
+export const LogOutPage = () => {
+    const dispatch = useDispatch();
 
-    props.history.push("/login");
+    const logOutUser = () => {
+        dispatch(userActions.logout());
+    
+        history.push("/");
+    };
+
+    return (
+        <button className="btn btn-primary" onClick={() => logOutUser()}>Log Out</button>
+    );
 };
-
-const LogOut = (props) => {
- return (
-    <button className="btn btn-primary" onClick={logOutUser(props)}>Log Out</button>
- );
-};
-
-export const LogOutPage = withRouter(props => LogOut(props));

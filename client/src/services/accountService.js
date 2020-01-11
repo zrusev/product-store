@@ -1,4 +1,4 @@
-import { post, clearStorage } from '../helpers';
+import { post } from '../helpers';
 import { serviceBaseURL } from '../constants';
 
 export class AccountService {
@@ -17,6 +17,6 @@ export class AccountService {
     }
 
     logout() {
-        return clearStorage();
+        return window.localStorage.removeItem('auth_token');
     }
 }
