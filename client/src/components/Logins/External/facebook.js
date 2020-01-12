@@ -2,7 +2,7 @@ import React from 'react';
 import FacebookLogin from 'react-facebook-login';
 import { history } from '../../../helpers';
 import { useDispatch } from 'react-redux';
-import { userActions, alertActions } from '../../../actions';
+import { userActions, alertActions } from '../../../+store/actions';
 
 export const Facebook = () => {
     const dispatch = useDispatch();
@@ -26,7 +26,7 @@ export const Facebook = () => {
 
         history.push("/");
     }
-    
+
     return (
         <FacebookLogin
             appId={process.env.REACT_APP_FB_APP_ID}
@@ -38,4 +38,4 @@ export const Facebook = () => {
             cssClass='btn btn-primary'
         />
     )
-}
+};

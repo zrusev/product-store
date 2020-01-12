@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { Router, Switch, Route } from 'react-router-dom';
 import { HomePage, LoginPage, RegisterPage, DashboardPage, Navigation } from './views';
-import { ProtectedRoute } from './components/protectedRoute';
+import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute';
 import { history } from './helpers';
 import { useSelector, useDispatch } from 'react-redux';
-import { alertActions } from './actions';
+import { alertActions } from './+store/actions';
 
 const App = () => {
   const alert = useSelector(state => state.alert);

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { userActions } from '../../actions';
+import { userActions } from '../../+store/actions';
 import { history } from '../../helpers';
 
 export const RegisterPage = props => {

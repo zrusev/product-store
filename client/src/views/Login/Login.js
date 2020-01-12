@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { userActions } from '../../actions';
+import { userActions } from '../../+store/actions';
 import { history } from '../../helpers';
-import { Facebook } from '../../components/Logins/External/facebook';
+import { Facebook } from '../../components/Logins/External/Facebook';
 
 export const LoginPage = () => {
     const dispatch = useDispatch();

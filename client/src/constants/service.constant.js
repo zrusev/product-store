@@ -1,1 +1,1 @@
-export const serviceBaseURL = 'https://localhost:5001/api/v1';
+export const serviceBaseURL =  process.env.REACT_APP_SERVICE_BASE_URL;

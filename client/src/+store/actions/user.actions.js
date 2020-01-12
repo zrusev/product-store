@@ -1,5 +1,5 @@
-import { userConstants } from '../constants';
-import { AccountService } from '../services';
+import { userConstants } from '../../constants';
+import { AccountService } from '../../services';
 import { alertActions } from './alert.actions';
 
 const service = new AccountService();

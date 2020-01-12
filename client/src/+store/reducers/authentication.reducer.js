@@ -1,4 +1,4 @@
-import { userConstants } from '../constants';
+import { userConstants } from '../../constants';
 
 let auth_token = localStorage.getItem('auth_token');
 
