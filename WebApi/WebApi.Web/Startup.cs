@@ -1,5 +1,6 @@
 namespace WebApi.Web
 {
+    using AutoMapper;
     using Helpers;
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -70,6 +71,8 @@ namespace WebApi.Web
             });
 
             services.AddConventionalServices();
+
+            services.AddAutoMapper(this.GetType());
 
             services.AddControllers();
         }
