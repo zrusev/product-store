@@ -17,7 +17,6 @@ namespace WebApi.Web
     using System.Threading.Tasks;
     using WebApi.Data;
     using WebApi.Data.Models.Users;
-    using WebApi.Services;
     using WebApi.Web.Infrastructure;
 
     public class Startup

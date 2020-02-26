@@ -1,11 +1,11 @@
 ﻿namespace WebApi.Services
 {
+    using Models.User;
     using Services.Common;
     using System.Collections.Generic;
-    using WebApi.Data.Models.Users;
 
     public interface IUserService: IScopedService
     {
-        public IEnumerable<ApplicationUser> Users();
+        public IEnumerable<UserServiceModel> Users();
     }
 }

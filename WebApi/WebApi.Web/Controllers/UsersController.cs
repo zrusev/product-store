@@ -8,7 +8,6 @@
     using Microsoft.Extensions.Options;
     using Models;
     using Models.Users;
-    using System.Collections.Generic;
     using System.Threading.Tasks;
     using WebApi.Data.Models.Users;
     using WebApi.Services;
@@ -20,16 +19,19 @@
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly AppSettings _appSettings;
+        private readonly IUserService _userService;
 
         public UsersController(ILogger<UsersController> logger,
                                UserManager<ApplicationUser> userManager, 
                                SignInManager<ApplicationUser> signInManager,
-                               IOptions<AppSettings> appSettings)
+                               IOptions<AppSettings> appSettings,
+                               IUserService userService)
         {
             _logger = logger;
             _userManager = userManager;
             _signInManager = signInManager;
             _appSettings = appSettings.Value;
+            _userService = userService;
         }
 
         [AllowAnonymous]
@@ -93,7 +95,9 @@
         [Authorize(Roles = WebConstants.UserRole)]
         public ActionResult GetAll()
         {
-            return Ok("success");
+            var users = _userService.Users();
+            
+            return Ok(users);
         }
     }
 }
