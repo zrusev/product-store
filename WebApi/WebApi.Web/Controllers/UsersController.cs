@@ -11,6 +11,7 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using WebApi.Data.Models.Users;
+    using WebApi.Services;
 
     [Authorize]
     public class UsersController : ApplicationController
