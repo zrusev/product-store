@@ -288,10 +288,10 @@ __pycache__/
 *.xsd.cs
 
 # Ignore appsettings
-**/appsettings.json
-**/appsettings.development.json
-**/appsettings.uat.json
-**/appsettings.production.json
+# **/appsettings.json
+# **/appsettings.development.json
+# **/appsettings.uat.json
+# **/appsettings.production.json
 
 # ignore connectionstrings
 **/connectionstrings.json
@@ -304,4 +304,4 @@ __pycache__/
 **/mailsettings.development.json
 **/mailsettings.uat.json
 **/mailsettings.production.json
-client/.env
+# client/.env
