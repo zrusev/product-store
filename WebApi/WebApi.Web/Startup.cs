@@ -38,9 +38,6 @@ namespace WebApi.Web
             services.AddDefaultIdentity<ApplicationUser>()
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-
-             services.AddIdentityServer()
-                .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
             
             var appSettingsSection = _configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);
@@ -53,7 +50,6 @@ namespace WebApi.Web
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })
-            .AddIdentityServerJwt()
             .AddJwtBearer(x =>
             {
                 x.RequireHttpsMetadata = false;
@@ -100,7 +96,6 @@ namespace WebApi.Web
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthentication();
-            app.UseIdentityServer();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
